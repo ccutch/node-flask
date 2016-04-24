@@ -1,0 +1,8 @@
+{
+  "presets": [
+    "es2016-node5"
+  ],
+  "plugins": [
+    "transform-decorators-legacy"
+  ]
+}

@@ -30,38 +30,10 @@ server.start()
 ```
 
 
-#### Function example
+#### Controller example
+Due to the specifications of decorators for es2016 (as of right now) functions are required to be in a class. So for right now all functions must be contained in a controller class. Once module level function decorators can be used this library will be updated.
 
-Functions must be exported to module to be served, this allows for dynamic routing without having to comment out code.
-
-**es2016**
-```javascript
-// mainController.js
-import flask from "node-flask"
-
-@flask.get("/")
-export function home(ctx) {
-  ctx.body = "Home page!"
-}
-```
-
-**es5**
-```javascript
-// mainController.js
-var flask = require("node-flask")
-
-module.exports.home = fucntion home(ctx) {
-  ctx.body = "Home Page"
-}
-
-flask.applyRoutes(module.exports, {
-  home: flask.get("/"),
-})
-```
-
-
-
-#### Class example
+<br />
 **es2016**
 ```javascript
 // postController.js

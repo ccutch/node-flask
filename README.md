@@ -54,7 +54,52 @@ module.exports.home = fucntion home(ctx) {
   ctx.body = "Home Page"
 }
 
-flask.applyRoutes(
+flask.applyRoutes(module.exports, {
   home: flask.get("/"),
-)
+})
 ```
+
+
+
+#### Class example
+**es2016**
+```javascript
+// postController.js
+import flask from "node-flask"
+import validateUser from "./middleware" // middleware auth function following koa2 middleware.
+
+
+@flask.prefix("/posts", validateUser)
+export default class PostController {
+
+  @flask.get("/:postId")
+  async home(ctx) {
+    ctx.body = await getPost(ctx.params.postId)
+  }
+}
+```
+
+**es5 (node5)**
+```javascript
+// postController.js
+var flask = require("node-flask")
+var validateUser = require("./middleware") // middleware auth function following koa2 middleware.
+var co = require("co")
+
+
+module.exports = class PostController {
+
+  home(ctx) {
+    return co(function* (ctx) {
+      ctx.body = yield getPost(ctx.params.postId)
+    })(ctx)
+  }
+}
+
+
+flask.applyRoutes(PostController, flask.prefix("/posts", validateUser), {
+  home: flask.get("/:postId"),
+})
+```
+
+

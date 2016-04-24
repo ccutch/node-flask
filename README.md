@@ -20,6 +20,7 @@ server.start()
 But there should also be support for vanila es5
 ```javascript
 var Server = require("node-flask").Server
+require("./mainController")
 
 var server = new Server({
   port: 5000,
@@ -47,13 +48,13 @@ export function home(ctx) {
 **es5**
 ```javascript
 // mainController.js
-const flask = require("node-flask")
+var flask = require("node-flask")
 
-module.exportrs.home = fucntion home(ctx) {
+module.exports.home = fucntion home(ctx) {
   ctx.body = "Home Page"
 }
 
 flask.applyRoutes(
-  home: [get("/")],
+  home: flask.get("/"),
 )
 ```

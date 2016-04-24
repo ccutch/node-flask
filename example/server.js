@@ -8,4 +8,5 @@ const server = new Server({
   port: PORT,
   controllers: join(__dirname, "controllers"),
 })
-server.start()
+
+server.start().then(() => console.log("Server online"))

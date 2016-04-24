@@ -8,58 +8,58 @@ Node implementation [flask](http://flask.pocoo.org/) like server framework. With
 Ideally this would be implemented with babel to use decorators like so.
 ```javascript
 import { Server } from "node-flask"
-import "./mainController"
+import MainController from "./mainController"
 
 const server = new Server({
   port: 5000,
+  controllers: [MainController],
 })
 
-server.start()
+server.start().then(() => console.log("Server online"))
 ```
 
 But there should also be support for vanila es5
 ```javascript
 var Server = require("node-flask").Server
-require("./mainController")
+var MainController = require("./mainController")
 
 var server = new Server({
   port: 5000,
+  controllers: [MainController],
 })
 
-server.start()
+server.start().then(() => console.log("Server online"))
 ```
 
 
 #### Controller example
 Due to the specifications of decorators for es2016 (as of right now) functions are required to be in a class. So for right now all functions must be contained in a controller class. Once module level function decorators can be used this library will be updated.
 
-<br />
-**es2016**
+<br>
+##### es2016
 ```javascript
-// postController.js
 import flask from "node-flask"
 import validateUser from "./middleware" // middleware auth function following koa2 middleware.
 
 
-@flask.prefix("/posts", validateUser)
-export default class PostController {
+@flask.prefix("/main", validateUser)
+export default class MainController {
 
-  @flask.get("/:postId")
+  @flask.get("/:index")
   async home(ctx) {
     ctx.body = await getPost(ctx.params.postId)
   }
 }
 ```
 
-**es5 (node5)**
+##### es5 (node5)
 ```javascript
-// postController.js
 var flask = require("node-flask")
 var validateUser = require("./middleware") // middleware auth function following koa2 middleware.
 var co = require("co")
 
 
-module.exports = class PostController {
+module.exports = class MainController {
 
   home(ctx) {
     return co(function* (ctx) {
@@ -69,8 +69,8 @@ module.exports = class PostController {
 }
 
 
-flask.applyRoutes(PostController, flask.prefix("/posts", validateUser), {
-  home: flask.get("/:postId"),
+flask.applyRoutes(MainController, flask.prefix("/main", validateUser), {
+  home: flask.get("/:index"),
 })
 ```
 

@@ -22,7 +22,7 @@ describe("decorators", () => {
     })
 
     it("should have a path, method, middleware, and action field for every route", () => {
-      for (let route of TestController.prototype.routes) {
+      for (const route of TestController.prototype.routes) {
         assert(typeof(route) === "object", "route is not type object")
         assert(route instanceof Object, "Route is not an instance of an object")
         assert(route.hasOwnProperty("path"), "Route does not have property path")

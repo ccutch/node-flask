@@ -42,6 +42,6 @@ function prefix(path) {
 
   return target => {
     target.prototype.prefix = path;
-    target.prototype.controllerMiddleware = middleware;
+    target.prototype.middleware = middleware;
   };
 }

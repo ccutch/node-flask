@@ -56,11 +56,10 @@ let Server = class Server extends _koa2.default {
     var _Controller$prototype = Controller.prototype;
     var _Controller$prototype2 = _Controller$prototype.prefix;
     const prefix = _Controller$prototype2 === undefined ? "" : _Controller$prototype2;
-    var _Controller$prototype3 = _Controller$prototype.controllerMiddleware;
-    const controllerMiddleware = _Controller$prototype3 === undefined ? [] : _Controller$prototype3;
-    var _Controller$prototype4 = _Controller$prototype.routes;
-    const routes = _Controller$prototype4 === undefined ? [] : _Controller$prototype4;
+    var _Controller$prototype3 = _Controller$prototype.routes;
+    const routes = _Controller$prototype3 === undefined ? [] : _Controller$prototype3;
 
+    const controllerMiddleware = Controller.prototype.middleware || [];
     const inst = new Controller();
 
     for (let route of routes) {

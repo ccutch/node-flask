@@ -1,7 +1,7 @@
 
-import assert from "assert"
+import assert          from "assert"
 import * as decorators from "../lib/decorators"
-import TestController from "./TestController"
+import TestController  from "./TestController"
 
 describe("decorators", () => {
   describe("Controller", () => {

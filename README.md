@@ -38,32 +38,25 @@ server.start()
 .catch(err => console.error(`An error occurred (such as port in use)`, err.stack))
 ```
 
-`#prefix(prefix: string, ...middleware: fn) => decorator`
----
+#### `#prefix(prefix: string, ...middleware: fn) => decorator`
 Class decorator for controller class level configuration.
 
-`#all(path: string, ...middleware: fn) => decorator`
----
+#### `#all(path: string, ...middleware: fn) => decorator`
 Handle all http requests on path.
 
-`#get(path: string, ...middleware: fn) => decorator`
----
+#### `#get(path: string, ...middleware: fn) => decorator`
 Handle all GET http requests on path.
 
-`#post(path: string, ...middleware: fn) => decorator`
----
+#### `#post(path: string, ...middleware: fn) => decorator`
 Handle all POST http requests on path.
 
-`#put(path: string, ...middleware: fn) => decorator`
----
+#### `#put(path: string, ...middleware: fn) => decorator`
 Handle all PUT http requests on path.
 
-`#patch(path: string, ...middleware: fn) => decorator`
----
+#### `#patch(path: string, ...middleware: fn) => decorator`
 Handle all PATCH http requests on path.
 
-`#del(path: string, ...middleware: fn) => decorator`
----
+#### `#del(path: string, ...middleware: fn) => decorator`
 Handle all DELETE http requests on path.
 
 

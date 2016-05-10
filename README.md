@@ -61,7 +61,7 @@ Handle all PUT http requests on path.
 ---
 Handle all PATCH http requests on path.
 
-#del(path: string, ...middleware: fn) => decorator
+`#del(path: string, ...middleware: fn) => decorator`
 ---
 Handle all DELETE http requests on path.
 
@@ -82,7 +82,7 @@ class MainController {
 ```
 **Example (node6)**
 ```javascript
-const flask = require("node-flask')
+const flask = require("node-flask")
 
 class MainController {
   constructor() {
@@ -101,9 +101,6 @@ class MainController {
 
 
 ### TODO:
-`- means todo`
-`+ means done`
- + vanilla node helpers
  - Write more tests for Server
  - Add helpful middleware and more decorators upon need
 

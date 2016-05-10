@@ -1,82 +1,110 @@
 ## Node Flask
 
-Node implementation [flask](http://flask.pocoo.org/) like server framework. With the introduction of function decorators and classes we are able to make a small and easy to implement routing system. This is build on koa2 for their support of es2016 functionality and because of its small foot print when compared to express.
+Node implementation [flask](http://flask.pocoo.org/) like server framework. With the introduction of function decorators and classes we are able to make a small and easy to implement routing system. This is build on koa2 for their support of es2016 functionality and because of its small foot print when compared to express. I am using koa@2 because all routes are handled though controller classes and passing a context to a function as a parameter and allowing `this` to still refer to the controller helps class logic. Even though we are using koa@2 you do not have to run you code though a compiler such as babel (though this step makes function decorators posible).
 
-#### Server example
-Ideally this would be implemented with babel to use decorators like so.
+
+
+### API
+
+Server() => Server
+---
+Main server to run controller classes. Extends `Koa` Class from koa@2.
+| Option | type   | description |
+| ------ | ------ | ----------- |
+| port   | `Number` | Http port to listen on |
+| controllers | `Object|Array|String` | (optional) Controllers or path to controller classes |
+
+**Example**
 ```javascript
-import { Server } from "node-flask"
-import MainController from "./mainController"
-
+const { Server } = require("node-flask")
+const MainController = require("./MainController")
 const server = new Server({
   port: 5000,
-  // optionally a string to a directory of controllers can be passed.
   controllers: [MainController],
 })
-
-server.start().then(() => console.log("Server online"))
-```
-
-But there should also be support for vanilla es5
-```javascript
-var Server = require("node-flask").Server
-var MainController = require("./mainController")
-
-var server = new Server({
-  port: 5000,
-  // optionally a string to a directory of controllers can be passed.
-  controllers: [MainController],
-})
-
-server.start().then(() => console.log("Server online"))
+server.start()
 ```
 
 
-#### Controller example
-Due to the specifications of decorators for es2016 (as of right now) functions are required to be in a class. So for right now all functions must be contained in a controller class. Once module level function decorators can be used this library will be updated.
-
-##### es2016
-Implementation for transpiled es2016
+Server#start() => Promise
+---
+Run server from configuration
+**Example**
 ```javascript
-import flask from "node-flask"
-import validateUser from "./middleware" // middleware auth function following koa2 middleware.
+const server = // ...from example above
+server.start()
+.then(() => console.log("Server online on port 5000"))
+.catch(err => console.error(`An error occurred (such as port in use)`, err.stack))
+```
+
+#prefix(prefix: string, ...middleware: fn) => decorator
+---
+Class decorator for controller class level configuration.
+
+#all(path: string, ...middleware: fn) => decorator
+---
+Handle all http requests on path.
+
+#get(path: string, ...middleware: fn) => decorator
+---
+Handle all GET http requests on path.
+
+#post(path: string, ...middleware: fn) => decorator
+---
+Handle all POST http requests on path.
+
+#put(path: string, ...middleware: fn) => decorator
+---
+Handle all PUT http requests on path.
+
+#patch(path: string, ...middleware: fn) => decorator
+---
+Handle all PATCH http requests on path.
+
+#del(path: string, ...middleware: fn) => decorator
+---
+Handle all DELETE http requests on path.
 
 
-@flask.prefix("/main", validateUser)
-export default class MainController {
+**Example (babel w/ transform-legacy-decorators)**
+```javascript
+const flask = require("node-flask")
 
-  @flask.get("/:index")
+@flask.prefix("/main", middlewarefunction)
+class MainController {
+
+  @flask.get("/home")
   async home(ctx) {
-    ctx.body = await getPost(ctx.params.postId)
+    const data = await getData()
+    ctx.body = data
   }
 }
 ```
-
-##### es5 (node5)
-Implementation for vanilla node5
+**Example (node6)**
 ```javascript
-var flask = require("node-flask")
-var validateUser = require("./middleware") // middleware auth function following koa2 middleware.
-var co = require("co")
+const flask = require("node-flask')
 
+class MainController {
+  constructor() {
+    this.prefix = "/main"
+    this.routes = flask.registerRoutes(this, {
+      home: flask.get("/home"),
+    })
+  }
 
-module.exports = class MainController {
-
-  home(ctx) {
-    return co(function* (ctx) {
-      ctx.body = yield getPost(ctx.params.postId)
-    })(ctx)
+  *home(ctx) {
+    const data = yield getData()
+    ctx.body = data
   }
 }
-
-
-flask.applyRoutes(MainController, flask.prefix("/main", validateUser), {
-  home: flask.get("/:index"),
-})
 ```
+
 
 ### TODO:
- - Write more tests for Server and vanilla node helpers
+`- means todo`
+`+ means done`
+ + vanilla node helpers
+ - Write more tests for Server
  - Add helpful middleware and more decorators upon need
 
 ### Contributions:

@@ -1,11 +1,17 @@
 
 import flask from "../.."
+import { wrap } from "co"
 
-@flask.prefix("/action")
-export default class ActionController {
+module.exports = class ActionController {
 
-  @flask.get("/")
-  home(ctx) {
+  constructor() {
+    this.prefix = "/action"
+    this.routes = flask.registerRoutes(this, {
+      home: flask.get("/"),
+    })
+  }
+
+  *home(ctx) {
     ctx.body = "Home page"
   }
 }

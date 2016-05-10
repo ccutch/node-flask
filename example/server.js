@@ -13,5 +13,5 @@ const server = new Server({
 })
 
 server.start()
-  .then(() => console.log("Server online"))
+  .then(() => console.log(`Server online port: 5000`))
   .catch(error => console.error(error.stack))

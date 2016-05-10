@@ -1,6 +1,5 @@
 
-import flask from "../.."
-import { wrap } from "co"
+const flask = require("../..")
 
 module.exports = class ActionController {
 

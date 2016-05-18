@@ -23,8 +23,6 @@ var _requireDir2 = _interopRequireDefault(_requireDir);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-
 let Server = class Server extends _koa2.default {
 
   constructor(_ref) {
@@ -76,7 +74,9 @@ let Server = class Server extends _koa2.default {
 
       const actions = controllerMiddleware.concat(middleware);
       actions.push(action);
-      this.use(_koaRoute2.default[method.toLowerCase()].apply(_koaRoute2.default, [(0, _path.join)(prefix, path)].concat(_toConsumableArray(actions))));
+      actions.forEach(a => {
+        this.use(_koaRoute2.default[method.toLowerCase()]((0, _path.join)(prefix, path), a));
+      });
     }
   }
 };

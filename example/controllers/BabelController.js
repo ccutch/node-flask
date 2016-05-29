@@ -1,13 +1,11 @@
 
-import flask from "../.."
+import flask from '../..'
 
-
-@flask.prefix("/babel")
+@flask.prefix('/babel')
 export default class BabelController {
 
-  @flask.get("/")
-  home() {
-    this.body = "Babel compiled controller"
+  @flask.get('/')
+  home () {
+    this.body = 'Babel compiled controller'
   }
-
 }

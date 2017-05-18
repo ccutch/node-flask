@@ -1,15 +1,15 @@
 
 import {Server} from '..'
 import {join} from 'path'
-// (option for controller list or object) import ActionController from './actions'
+// (option for blueprint list or object) import ActionRoutes from './routes/ActionRoutes'
 
 const {PORT = 5000} = process.env
 const server = new Server({
   port: PORT,
-  // (optional controller array) controllers: [ActionController],
-  // (optional controller object) controllers: { actions: ActionController },
+  // (optional blueprint array) blueprints: [ActionRoutes],
+  // (optional blueprint object) blueprints: { actions: ActionRoutes },
   // (string option) *used below
-  controllers: join(__dirname, 'controllers')
+  blueprints: join(__dirname, 'routes')
 })
 
 server.start()

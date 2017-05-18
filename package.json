@@ -1,7 +1,7 @@
 {
   "name": "node-flask",
   "description": "Microserver for nodejs based based on python flask.",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "author": "Connor McCutcheon",
   "bugs": "github.com/ccutch/node-flask/issues",
   "dependencies": {

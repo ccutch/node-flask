@@ -6,8 +6,8 @@ export function middleware(ctx, next) {
 }
 
 
-@flask.prefix("/prefix")
-export default class TestController {
+@flask.blueprint("/prefix")
+export default class TestRoutes {
 
   @flask.all("/all")
   allRoute(ctx) {

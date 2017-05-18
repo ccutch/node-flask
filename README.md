@@ -1,6 +1,6 @@
 ## Node Flask
 
-Node implementation [flask](http://flask.pocoo.org/) like server framework. With the introduction of function decorators and classes we are able to make a small and easy to implement routing system. This is build on koa2 for their support of es2016 functionality and because of its small foot print when compared to express. I am using koa@2 because all routes are handled though controller classes and passing a context to a function as a parameter and allowing `this` to still refer to the controller helps class logic. Even though we are using koa@2 you do not have to run you code though a compiler such as babel (though this step makes function decorators posible).
+Node implementation [flask](http://flask.pocoo.org/) like server framework. With the introduction of function decorators and classes we are able to make a small and easy to implement routing system. This is build on koa2 for their support of es2016 functionality and because of its small foot print when compared to express. I am using koa@2 because all routes are handled though blueprint classes and passing a context to a function as a parameter and allowing `this` to still refer to the blueprint helps class logic. Even though we are using koa@2 you do not have to run you code though a compiler such as babel (though this step makes function decorators posible).
 
 
 
@@ -8,20 +8,20 @@ Node implementation [flask](http://flask.pocoo.org/) like server framework. With
 
 Server() => Server
 ---
-Main server to run controller classes. Extends `Koa` Class from koa@2.
+Main server to run blueprint classes. Extends `Koa` Class from koa@2.
 
 | Option | type   | description |
 | ------ | ------ | ----------- |
 | port   | `Number` | Http port to listen on |
-| controllers | `Object|Array|String` | (optional) Controllers or path to controller classes |
+| blueprints | `Object|Array|String` | (optional) Blueprints or path to blueprint classes |
 
 **Example**
 ```javascript
 const { Server } = require("node-flask")
-const MainController = require("./MainController")
+const MainRoutes = require("./MainRoutes")
 const server = new Server({
   port: 5000,
-  controllers: [MainController],
+  blueprints: [MainRoutes],
 })
 server.start()
 ```
@@ -39,7 +39,7 @@ server.start()
 ```
 
 #### `#prefix(prefix: string, ...middleware: fn) => decorator`
-Class decorator for controller class level configuration.
+Class decorator for blueprint class level configuration.
 
 #### `#all(path: string, ...middleware: fn) => decorator`
 Handle all http requests on path.
@@ -65,7 +65,7 @@ Handle all DELETE http requests on path.
 const flask = require("node-flask")
 
 @flask.prefix("/main", middlewarefunction)
-class MainController {
+class MainRoutes {
 
   @flask.get("/home")
   async home(ctx) {
@@ -78,7 +78,7 @@ class MainController {
 ```javascript
 const flask = require("node-flask")
 
-class MainController {
+class MainRoutes {
   constructor() {
     this.prefix = "/main"
     this.routes = flask.registerRoutes(this, {

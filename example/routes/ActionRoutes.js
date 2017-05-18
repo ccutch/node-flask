@@ -1,7 +1,7 @@
 
 const flask = require('../..')
 
-module.exports = class ActionController {
+module.exports = class ActionRoutes {
 
   constructor () {
     this.prefix = '/action'
